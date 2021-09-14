@@ -1,8 +1,10 @@
+const SIGNING_KEY = 'oqLlmSRa5j3Y8YEYRsYrgO9ubTS2wv/ENuMCpm5HX555ef4aRPkceYru1lTuvccXm1dT73QuU3nqB5aRzq4nDVKpFSQs3oXvFSEEk2XNt2RPgMPTDWPU2h3Fblc5nDxLJHKRqsXDgncc/8aOXmGrMp2+SruMuz3NTFUf0YlyB+Fwb8z+hnK7JN4uszxO//72d4tcrs0xbuv4ke+2WXUN5ROu4/2nky0eJUP38/VH41jifprI0EHfrrt2aY3O9FvH5vFWT2NHmPJBz7ZVl6zoKB4ja1D03ZklOD/zJuYTNRUBo+2zaHyjmmvOFkvG3NiCtlguIM0tpgwV468eM2KKTQ==';
 var express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const bcrypt = require('bcryptjs');
 var mysql = require('mysql');
+const nJwt = require('njwt');
 
 var app = express()
 .use(cors({credentials: true, origin: 'http://localhost:4200'
@@ -14,7 +16,7 @@ app.post('/register', function (req, res) {
   const connection = mysql.createConnection({
     host     : 'localhost',
     user     : 'root',
-    password : '',
+    password : 'sistemas',
     database : 'trainingproject'
   });
   connection.connect((err) => {
@@ -63,18 +65,24 @@ app.post('/login', function (req, res) {
     if(err) throw err;
     console.log("---------- ", result);
 
-    if(result.size > 0){
+    if(result.length > 0){
       if (!bcrypt.compareSync(password, result[0].password)) {
         return res.status(401).send({ status: 'authentication failed', auth: false});
       }
     }else{
       return res.status(401).send({ status: 'authentication failed', auth: false});
     }
+    connection.end();
+
+    //TOKEN
+    let jwt = nJwt.create({ cedula: result[0].cedula }, SIGNING_KEY);
+    jwt.setExpiration(new Date().getTime() + (2 * 60 * 1000));
+    let token = jwt.compact();
     return res.status(200).json({
-      "Status": "Login ok",
-      "reg": true,
-      "cedula": cedula,
-      "password": password});
+      "Status": "authentication ok",
+      token: token,
+      auth: true
+    });
   });
 });
 
