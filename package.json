@@ -1,9 +1,12 @@
 {
   "dependencies": {
+    "cookie-parser": "^1.4.5",
     "bcryptjs": "^2.4.3",
     "cors": "^2.8.5",
     "express": "^4.17.1",
     "mysql": "^2.18.1",
-    "njwt": "^1.1.0"
+    "njwt": "^1.1.0",
+    "express-bearer-token": "^2.4.0",
+    "express-validator": "^6.12.1"
   }
 }
