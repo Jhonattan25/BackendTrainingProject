@@ -7,10 +7,8 @@ const cookieParser = require('cookie-parser');
 
 const registerUser = require('./routes/registerUser'); 
 const login = require('./routes/login'); 
-const registerDocuments = require('./routes/registerDocuments');
-/* const registerLostDocuments = require('./routes/registerLostDocuments'); 
-const registerFoundDocuments = require('./routes/registerFoundDocuments');  */
-const lostDocuments = require('./routes/lostDocuments'); 
+const addDocuments = require('./routes/addDocuments');
+const consultDocuments = require('./routes/consultDocuments'); 
 
 const app = express()
   .use(cors({ credentials: true, origin: "http://localhost:4200" }))
@@ -21,9 +19,7 @@ const app = express()
 
 app.use('/registerUser', registerUser);
 app.use('/login', login);
-app.use('/registerDocuments', registerDocuments)
-/* app.use('/registerLostDocuments', registerLostDocuments);
-app.use('/registerFoundDocuments', registerFoundDocuments); */
-app.use('/lostDocuments', lostDocuments);
+app.use('/addDocuments', addDocuments);
+app.use('/consultDocuments', consultDocuments);
 
 module.exports = app;

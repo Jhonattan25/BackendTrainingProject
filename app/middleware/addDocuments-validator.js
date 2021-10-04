@@ -8,7 +8,7 @@ validatorParams = [
   check("date").isDate(),
   check("state").isBoolean(),
   check("category").isBoolean(),
-  check("userIdentificationNumber").isLength({ min: 8, max: 10 }),
+  //check("userIdentificationNumber").isLength({ min: 8, max: 10 }),
   check("cityCode").isLength({ min: 5, max: 6 }),
 ];
 function validator(req, res, next) {
