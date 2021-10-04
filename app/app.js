@@ -5,10 +5,11 @@ const bodyParser = require('body-parser');
 const bearerToken = require('express-bearer-token');
 const cookieParser = require('cookie-parser');
 
-const register = require('./routes/register'); 
+const registerUser = require('./routes/registerUser'); 
 const login = require('./routes/login'); 
-const registerLostDocuments = require('./routes/registerLostDocuments'); 
-const registerFoundDocuments = require('./routes/registerFoundDocuments'); 
+const registerDocuments = require('./routes/registerDocuments');
+/* const registerLostDocuments = require('./routes/registerLostDocuments'); 
+const registerFoundDocuments = require('./routes/registerFoundDocuments');  */
 const lostDocuments = require('./routes/lostDocuments'); 
 
 const app = express()
@@ -18,10 +19,11 @@ const app = express()
   .use(cookieParser())
   .use(bearerToken());
 
-app.use('/register', register);
+app.use('/registerUser', registerUser);
 app.use('/login', login);
-app.use('/registerLostDocuments', registerLostDocuments);
-app.use('/registerFoundDocuments', registerFoundDocuments);
+app.use('/registerDocuments', registerDocuments)
+/* app.use('/registerLostDocuments', registerLostDocuments);
+app.use('/registerFoundDocuments', registerFoundDocuments); */
 app.use('/lostDocuments', lostDocuments);
 
 module.exports = app;
