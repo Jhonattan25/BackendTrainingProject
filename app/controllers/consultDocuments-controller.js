@@ -1,4 +1,4 @@
-const mysqlConnection = require("../config/mysql");
+//const mysqlConnection = require("../config/mysql");
 
 let consultDocuments = (req, res) => {
     let category = req.header("category");

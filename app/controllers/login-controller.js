@@ -1,4 +1,4 @@
-const mysqlConnection = require("../config/mysql");
+//const mysqlConnection = require("../config/mysql");
 const bcrypt = require("bcryptjs");
 const nJwt = require("njwt");
 const config = require("../config/keys");

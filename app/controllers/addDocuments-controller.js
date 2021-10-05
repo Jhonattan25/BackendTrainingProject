@@ -1,4 +1,4 @@
-const mysqlConnection = require("../config/mysql");
+//const mysqlConnection = require("../config/mysql");
 
 let addDocuments = (req, res) => {
   let insert = `INSERT INTO ${process.env.TABLE_DOCUMENT_REPORT} SET ?`;
