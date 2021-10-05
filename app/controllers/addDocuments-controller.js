@@ -8,6 +8,7 @@ let addDocuments = (req, res) => {
     return res.status(200).json({
       status: "Document added successfully",
       reg: true,
+      result: result
     });
   });
 };
