@@ -1,7 +1,7 @@
 const { check, validationResult } = require('express-validator');
 
 validatorParams = [
-    check('cedula').isLength({ min: 8, max: 10}),
+    check('identificationNumber').isLength({ min: 8, max: 10}),
     check('password').isLength({ min: 8, max: 15})
   ];
 

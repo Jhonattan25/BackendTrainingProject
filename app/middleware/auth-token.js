@@ -13,7 +13,7 @@ let njwtAuth = (req, res, next) => {
   nJwt.verify(token, config.SIGNING_KEY, function(err, decoded) {
     if (err) {
       return res.status(500).send({ 
-        status: "authentication failed",
+        status: "Authentication failed",
         auth: false, 
         message: err });
     }
@@ -26,4 +26,3 @@ let njwtAuth = (req, res, next) => {
 module.exports = {
   njwtAuth
 };
-

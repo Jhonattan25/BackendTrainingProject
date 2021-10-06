@@ -1,17 +1,14 @@
+require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const bearerToken = require('express-bearer-token');
 const cookieParser = require('cookie-parser');
 
-
-
-const register = require('./routes/register'); 
+const registerUser = require('./routes/registerUser'); 
 const login = require('./routes/login'); 
-const registerLostDocuments = require('./routes/registerLostDocuments'); 
-const registerFoundDocuments = require('./routes/registerFoundDocuments'); 
-const lostDocuments = require('./routes/lostDocuments'); 
-
+const addDocuments = require('./routes/addDocuments');
+const consultDocuments = require('./routes/consultDocuments'); 
 
 const app = express()
   .use(cors({ credentials: true, origin: "http://localhost:4200" }))
@@ -20,12 +17,9 @@ const app = express()
   .use(cookieParser())
   .use(bearerToken());
 
-  //auth
-app.use('/register', register);
+app.use('/registerUser', registerUser);
 app.use('/login', login);
-app.use('/registerLostDocuments', registerLostDocuments);
-app.use('/registerFoundDocuments', registerFoundDocuments);
-app.use('/lostDocuments', lostDocuments);
-
+app.use('/addDocuments', addDocuments);
+app.use('/consultDocuments', consultDocuments);
 
 module.exports = app;
