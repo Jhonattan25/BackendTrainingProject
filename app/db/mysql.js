@@ -7,7 +7,7 @@ function connection() {
 }
 
 function registerUser(data) {
-  let mysqlConnection = connection();
+  const mysqlConnection = connection();
   mysqlConnection.connect((err) => {
     if (err) throw err;
     console.log("Connected to MySQL Server!");
@@ -22,7 +22,30 @@ function registerUser(data) {
   });
 }
 
+function login(data) {
+  const mysqlConnection = connection();
+  mysqlConnection.connect((err) => {
+    if (err) throw err;
+    console.log("Connected to MySQL Server!");
+  });
+
+  let identificationNumber = data.identificationNumber;
+  let select = `SELECT identificationNumber, password FROM ${process.env.TABLE_USER} WHERE identificationNumber=?`;
+  let query = mysqlConnection.format(select, [identificationNumber]);
+
+  return new Promise((resolve, reject) => {
+    mysqlConnection.query(query, (error, result) => {
+      if (error) throw error;
+      mysqlConnection.end();
+      console.log(result);
+      resolve(result);
+      //return result;
+    });
+  });
+}
+
 module.exports = {
   connection,
   registerUser,
+  login,
 };
