@@ -1,15 +1,17 @@
 //const mysqlConnection = require("../config/mysql");
+const db = require("../db/mysql");
 
 let addDocuments = (req, res) => {
-  let insert = `INSERT INTO ${process.env.TABLE_DOCUMENT_REPORT} SET ?`;
-  let query = mysqlConnection.format(insert, req.body);
-  mysqlConnection.query(query, (error, result) => {
-    if (error) throw error;
+  db.addDocuments(req.body)
+  .then((result) => {
     return res.status(200).json({
-      status: "Document added successfully",
-      reg: true,
-      result: result
+      status: "Token ok",
+      auth: true,
+      documents: result,
     });
+  })
+  .catch((err) => {
+    console.log(err);
   });
 };
 
