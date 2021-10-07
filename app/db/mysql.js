@@ -7,18 +7,21 @@ function connection() {
 }
 
 function registerUser(data) {
-  const mysqlConnection = connection();
-  mysqlConnection.connect((err) => {
-    if (err) throw err;
-    console.log("Connected to MySQL Server!");
-  });
+  return new Promise((resolve, reject)=>{
+    const mysqlConnection = connection();
+    mysqlConnection.connect((err) => {
+      if (err) throw err;
+      console.log("Connected to MySQL Server!");
+    });
 
-  let insert = `INSERT INTO ${process.env.TABLE_USER} SET ?`;
-  let query = mysqlConnection.format(insert, data);
-
-  mysqlConnection.query(query, (error, result) => {
-    if (error) throw error;
-    mysqlConnection.end();
+    let insert = `INSERT INTO ${process.env.TABLE_USER} SET ?`;
+    let query = mysqlConnection.format(insert, data);
+    
+    mysqlConnection.query(query, (error, result) => {
+      if (error) reject(error);
+      mysqlConnection.end();
+      resolve(result);
+    });
   });
 }
 
@@ -62,10 +65,30 @@ function consultDocuments(data){
   });
 }
 
+function addDocuments(data){
+  return new Promise((resolve, reject)=>{
+    const mysqlConnection = connection();
+    mysqlConnection.connect((err) => {
+      if (err) throw err;
+      console.log("Connected to MySQL Server!");
+    });
+
+    let insert = `INSERT INTO ${process.env.TABLE_DOCUMENT_REPORT} SET ?`;
+    let query = mysqlConnection.format(insert, data);
+    
+    mysqlConnection.query(query, (error, result) => {
+      if (error) reject(error);
+      mysqlConnection.end();
+      resolve(result);
+    });
+  });
+}
+
 
 module.exports = {
   connection,
   registerUser,
   login,
   consultDocuments,
+  addDocuments,
 };
