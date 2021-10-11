@@ -5,9 +5,8 @@ let addDocuments = (req, res) => {
   db.addDocuments(req.body)
   .then((result) => {
     return res.status(200).json({
-      status: "Token ok",
-      auth: true,
-      documents: result,
+      status: "Documents added successfully",
+      add: true
     });
   })
   .catch((err) => {

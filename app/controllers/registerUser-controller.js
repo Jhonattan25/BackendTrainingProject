@@ -8,9 +8,8 @@ let register = (req, res) => {
   db.registerUser(req.body)
   .then((result) => {
     return res.status(200).json({
-      status: "Token ok",
-      auth: true,
-      documents: result,
+      status: "Successful registration",
+      reg: true
     });
   })
   .catch((err) => {
