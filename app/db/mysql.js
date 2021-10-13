@@ -20,7 +20,9 @@ function registerUser(data) {
     mysqlConnection.query(query, (error, result) => {
       if (error) reject(error);
       mysqlConnection.end();
+
       resolve(result);
+      setTimeout(resolve, 5000);
     });
   });
 }
