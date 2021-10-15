@@ -37,6 +37,9 @@ let register = async (req, res) => {
     `, // html body
 
     });
+     await db.registerUser(req.body)
+  .then((result) => {
+
     return res.status(200).json({
       status: "Successful registration",
       reg: true
