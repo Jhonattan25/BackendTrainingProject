@@ -2,7 +2,6 @@ const db = require("../db/mysql");
 const bcrypt = require("bcryptjs");
 const transporter = require("../config/mailer");
 
-
 let register = async (req, res) => {
   let hashPass = bcrypt.hashSync(req.body.password, 8);
   req.body.password = hashPass;
