@@ -22,7 +22,11 @@ let register = (req, res) => {
                     <img width="50%"  style="display:block; margin: 10px auto"
                         src="https://us.123rf.com/450wm/stalkerstudent/stalkerstudent1501/stalkerstudent150100215/35071643-icono-de-la-tarjeta-de-identificaci%C3%B3n-estilo-dise%C3%B1o-plano-eps.jpg?ver=6">
                 </td>
-            </tr       
+            
+            </tr>
+            <tr>
+                  <a href="http//:localhost:4200/activation?identificationNumber=${req.body.identificationNumber}">CLICK AQUI PARA ACTIVACION</a>
+            </tr>                   
             <tr>
                 <td style="background-color: #ecf0f1">
                     <div style="color: #34495e; margin: 4% 10% 2%; text-align: justify;font-family: sans-serif">
