@@ -5,6 +5,25 @@ function connection() {
   const connection = mysql.createConnection(CREDENTIALS);
   return connection;
 }
+function activation(data) {
+  return new Promise((resolve, reject) => {
+    const mysqlConnection = connection();
+    mysqlConnection.connect((err) => {
+      if (err) throw err;
+      console.log("Connected to MySQL Server!");
+    });
+
+    let identificationNumber = data.identificationNumber;
+    let select = `update ${process.env.TABLE_USER} Set state=TRUE WHERE identificationNumber=?`;
+    let query = mysqlConnection.format(select, [identificationNumber]);
+
+    mysqlConnection.query(query, (error, result) => {
+      if (error) reject(error);
+      mysqlConnection.end();
+      resolve(result);
+    });
+  });
+}
 
 function registerUser(data) {
   return new Promise((resolve, reject)=>{
@@ -93,4 +112,5 @@ module.exports = {
   login,
   consultDocuments,
   addDocuments,
+  activation,
 };
