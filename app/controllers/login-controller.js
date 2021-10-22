@@ -15,6 +15,13 @@ let login = (req, res) => {
             auth: false,
           });
         }
+        if (!result[0].state) {
+          return res.status(401).json({
+            status: "Account is not activated",
+            auth: false,
+            act: false,
+          });
+        }
       } else {
         return res.status(401).json({
           status: "Authentication failed",

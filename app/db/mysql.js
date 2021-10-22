@@ -14,7 +14,7 @@ function activation(data) {
     });
 
     let identificationNumber = data.identificationNumber;
-    let select = `update ${process.env.TABLE_USER} Set state=TRUE WHERE identificationNumber=?`;
+    let select = `update ${process.env.TABLE_USER} SET state = true WHERE identificationNumber=?`;
     let query = mysqlConnection.format(select, [identificationNumber]);
 
     mysqlConnection.query(query, (error, result) => {
@@ -55,7 +55,7 @@ function login(data) {
     });
 
     let identificationNumber = data.identificationNumber;
-    let select = `SELECT identificationNumber, password FROM ${process.env.TABLE_USER} WHERE identificationNumber=?`;
+    let select = `SELECT identificationNumber, password, state FROM ${process.env.TABLE_USER} WHERE identificationNumber=?`;
     let query = mysqlConnection.format(select, [identificationNumber]);
 
     mysqlConnection.query(query, (error, result) => {
