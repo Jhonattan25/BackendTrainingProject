@@ -1,9 +1,6 @@
 const { check, validationResult } = require("express-validator");
 
-validatorParams = [
-  check("identificationNumber").isLength({ min: 8, max: 10 }),
-  check("password").isLength({ min: 8, max: 15 }),
-];
+validatorParams = [check("identificationNumber").isLength({ min: 8, max: 10 })];
 
 function validator(req, res, next) {
   const errors = validationResult(req);
