@@ -10,12 +10,13 @@ let register = (req, res) => {
     .then(async (result) => {
       try {
         // send mail with defined transport object
-        await transporter.sendMail({
-          from: '"Reporte De Documentos" <reportdococument@gmail.com>', // sender address
-          to: `${req.body.email}`, // list of receivers
-          subject: "Registro exitoso ✔", // Subject line
-          text: "Bienvenido a la pagina web de Documentos Perdidos", // plain text body
-          html: `
+        await transporter.sendMail(
+          {
+            from: '"Reporte De Documentos" <reportdococument@gmail.com>', // sender address
+            to: `${req.body.email}`, // list of receivers
+            subject: "Registro exitoso ✔", // Subject line
+            text: "Bienvenido a la pagina web de Documentos Perdidos", // plain text body
+            html: `
           <table style="max-width: 600px; padding: 10px; margin:0 auto; border-collapse: collapse;">
             <tr>
                 <td style="background-color: #ecf0f1; text-align: center; padding: 0">
@@ -23,10 +24,7 @@ let register = (req, res) => {
                         src="https://us.123rf.com/450wm/stalkerstudent/stalkerstudent1501/stalkerstudent150100215/35071643-icono-de-la-tarjeta-de-identificaci%C3%B3n-estilo-dise%C3%B1o-plano-eps.jpg?ver=6">
                 </td>
             
-            </tr>
-            <tr>
-                  <a href="http//:localhost:4200/activation?identificationNumber=${req.body.identificationNumber}">CLICK AQUI PARA ACTIVACION</a>
-            </tr>                   
+            </tr>                  
             <tr>
                 <td style="background-color: #ecf0f1">
                     <div style="color: #34495e; margin: 4% 10% 2%; text-align: justify;font-family: sans-serif">
@@ -49,19 +47,26 @@ let register = (req, res) => {
                     </div>
                 </td>
             </tr>
+            <tr>
+                <td>
+                    <a href="http://localhost:4200/activation?identificationNumber=${req.body.identificationNumber}">CLICK AQUI PARA ACTIVACION</a>
+                </td>
+            </tr> 
           </table>
         `, // html body
 
-          attachments: [
-            {
-              path: './app/documents/Proyecto_web_GetIt.pdf'
-            },
-          ],
-        }, (error)=>{
-          if(error){
-            console.log(error);
+            attachments: [
+              {
+                path: "./app/documents/Proyecto_web_GetIt.pdf",
+              },
+            ],
+          },
+          (error) => {
+            if (error) {
+              console.log(error);
+            }
           }
-        });
+        );
       } catch (error) {
         //emailStatus = error;
         return res.status(400).json({
