@@ -5,18 +5,18 @@ function connection() {
   const connection = mysql.createConnection(CREDENTIALS);
   return connection;
 }
-function activation(data) {
-  return new Promise((resolve, reject) => {
+
+function consultCities(data){
+  return new Promise((resolve, reject)=>{
     const mysqlConnection = connection();
     mysqlConnection.connect((err) => {
       if (err) throw err;
       console.log("Connected to MySQL Server!");
     });
 
-    let identificationNumber = data.identificationNumber;
-    let select = `update ${process.env.TABLE_USER} SET state = true WHERE identificationNumber=?`;
-    let query = mysqlConnection.format(select, [identificationNumber]);
-
+    let select =  `SELECT * FROM ${process.env.TABLE_CITY}`;
+    let query = mysqlConnection.format(select);
+    
     mysqlConnection.query(query, (error, result) => {
       if (error) reject(error);
       mysqlConnection.end();
@@ -42,6 +42,26 @@ function registerUser(data) {
 
       resolve(result);
       setTimeout(resolve, 5000);
+    });
+  });
+}
+
+function activation(data) {
+  return new Promise((resolve, reject) => {
+    const mysqlConnection = connection();
+    mysqlConnection.connect((err) => {
+      if (err) throw err;
+      console.log("Connected to MySQL Server!");
+    });
+
+    let identificationNumber = data.identificationNumber;
+    let select = `update ${process.env.TABLE_USER} SET state = true WHERE identificationNumber=?`;
+    let query = mysqlConnection.format(select, [identificationNumber]);
+
+    mysqlConnection.query(query, (error, result) => {
+      if (error) reject(error);
+      mysqlConnection.end();
+      resolve(result);
     });
   });
 }
@@ -113,4 +133,5 @@ module.exports = {
   consultDocuments,
   addDocuments,
   activation,
+  consultCities,
 };
