@@ -82,6 +82,7 @@ function login(data) {
       if (error) reject(error);
       mysqlConnection.end();
       resolve(result);
+      setTimeout(resolve, 5000);
     });
   });
 }
@@ -121,6 +122,7 @@ function addDocuments(data) {
       if (error) reject(error);
       mysqlConnection.end();
       resolve(result);
+      setTimeout(resolve, 5000);
     });
   });
 }
