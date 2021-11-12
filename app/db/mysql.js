@@ -86,6 +86,46 @@ function consultDocuments(data){
   });
 }
 
+
+function consultUser(data){
+  return new Promise((resolve, reject)=>{
+    const mysqlConnection = connection();
+    mysqlConnection.connect((err) => {
+      if (err) throw err;
+      console.log("Connected to MySQL Server!");
+    });
+    let identificationNumber = data;
+    let select =  `SELECT fullName,email,cityCode FROM ${process.env.TABLE_USER} WHERE identificationNumber=?`;
+    let query = mysqlConnection.format(select, [identificationNumber]);
+    mysqlConnection.query(query, (error, result) => {
+      if (error) reject(error);
+      mysqlConnection.end();
+      resolve(result);
+    });
+  });
+}
+
+
+function updateData(data){
+  return new Promise((resolve, reject)=>{
+    const mysqlConnection = connection();
+    mysqlConnection.connect((err) => {
+      if (err) throw err;
+      console.log("Connected to MySQL Server!");
+    });
+
+    let identificationNumber = data.identificationNumber;
+    let select =  `UPDATE ${process.env.TABLE_USER} SET ? WHERE identificationNumber=${identificationNumber}`;
+    let query = mysqlConnection.format(select, data);
+    
+    mysqlConnection.query(query, (error, result) => {
+      if (error) reject(error);
+      mysqlConnection.end();
+      resolve(result);
+    });
+  });
+}
+
 function addDocuments(data){
   return new Promise((resolve, reject)=>{
     const mysqlConnection = connection();
@@ -113,4 +153,6 @@ module.exports = {
   consultDocuments,
   addDocuments,
   activation,
+  updateData,
+  consultUser,
 };
