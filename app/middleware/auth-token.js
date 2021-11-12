@@ -19,8 +19,7 @@ let njwtAuth = (req, res, next) => {
         message: err,
       });
     }
-    cedula = decoded.body.cedula;
-
+  //identificationNumber = decoded.body.identificationNumber;
     next();
   });
 };
