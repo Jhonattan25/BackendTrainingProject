@@ -5,6 +5,47 @@ function connection() {
   const connection = mysql.createConnection(CREDENTIALS);
   return connection;
 }
+
+function consultCities(data) {
+  return new Promise((resolve, reject) => {
+    const mysqlConnection = connection();
+    mysqlConnection.connect((err) => {
+      if (err) throw err;
+      console.log("Connected to MySQL Server!");
+    });
+
+    let select = `SELECT * FROM ${process.env.TABLE_CITY}`;
+    let query = mysqlConnection.format(select);
+
+    mysqlConnection.query(query, (error, result) => {
+      if (error) reject(error);
+      mysqlConnection.end();
+      resolve(result);
+    });
+  });
+}
+
+function registerUser(data) {
+  return new Promise((resolve, reject) => {
+    const mysqlConnection = connection();
+    mysqlConnection.connect((err) => {
+      if (err) throw err;
+      console.log("Connected to MySQL Server!");
+    });
+
+    let insert = `INSERT INTO ${process.env.TABLE_USER} SET ?`;
+    let query = mysqlConnection.format(insert, data);
+
+    mysqlConnection.query(query, (error, result) => {
+      if (error) reject(error);
+      mysqlConnection.end();
+
+      resolve(result);
+      setTimeout(resolve, 5000);
+    });
+  });
+}
+
 function activation(data) {
   return new Promise((resolve, reject) => {
     const mysqlConnection = connection();
@@ -25,27 +66,6 @@ function activation(data) {
   });
 }
 
-function registerUser(data) {
-  return new Promise((resolve, reject)=>{
-    const mysqlConnection = connection();
-    mysqlConnection.connect((err) => {
-      if (err) throw err;
-      console.log("Connected to MySQL Server!");
-    });
-
-    let insert = `INSERT INTO ${process.env.TABLE_USER} SET ?`;
-    let query = mysqlConnection.format(insert, data);
-    
-    mysqlConnection.query(query, (error, result) => {
-      if (error) reject(error);
-      mysqlConnection.end();
-
-      resolve(result);
-      setTimeout(resolve, 5000);
-    });
-  });
-}
-
 function login(data) {
   return new Promise((resolve, reject) => {
     const mysqlConnection = connection();
@@ -62,12 +82,13 @@ function login(data) {
       if (error) reject(error);
       mysqlConnection.end();
       resolve(result);
+      setTimeout(resolve, 5000);
     });
   });
 }
 
-function consultDocuments(data){
-  return new Promise((resolve, reject)=>{
+function consultDocuments(data) {
+  return new Promise((resolve, reject) => {
     const mysqlConnection = connection();
     mysqlConnection.connect((err) => {
       if (err) throw err;
@@ -75,9 +96,9 @@ function consultDocuments(data){
     });
 
     let category = data.category;
-    let select =  `SELECT * FROM ${process.env.TABLE_DOCUMENT_REPORT} WHERE category=?`;
+    let select = `SELECT * FROM ${process.env.TABLE_DOCUMENT_REPORT} WHERE category=?`;
     let query = mysqlConnection.format(select, [category]);
-    
+
     mysqlConnection.query(query, (error, result) => {
       if (error) reject(error);
       mysqlConnection.end();
@@ -126,8 +147,9 @@ function updateData(data){
   });
 }
 
-function addDocuments(data){
-  return new Promise((resolve, reject)=>{
+
+function addDocuments(data) {
+  return new Promise((resolve, reject) => {
     const mysqlConnection = connection();
     mysqlConnection.connect((err) => {
       if (err) throw err;
@@ -136,7 +158,29 @@ function addDocuments(data){
 
     let insert = `INSERT INTO ${process.env.TABLE_DOCUMENT_REPORT} SET ?`;
     let query = mysqlConnection.format(insert, data);
-    
+
+    mysqlConnection.query(query, (error, result) => {
+      if (error) reject(error);
+      mysqlConnection.end();
+      resolve(result);
+      setTimeout(resolve, 5000);
+    });
+  });
+}
+
+function consultDocument(data) {
+  return new Promise((resolve, reject) => {
+    const mysqlConnection = connection();
+    mysqlConnection.connect((err) => {
+      if (err) throw err;
+      console.log("Connected to MySQL Server!");
+    });
+
+    let category = data.category;
+    let documentNumber = data.documentNumber;
+    let select = `SELECT * FROM ${process.env.TABLE_DOCUMENT_REPORT} WHERE category=? AND documentNumber=?`;
+    let query = mysqlConnection.format(select, [category, documentNumber]);
+
     mysqlConnection.query(query, (error, result) => {
       if (error) reject(error);
       mysqlConnection.end();
@@ -144,7 +188,6 @@ function addDocuments(data){
     });
   });
 }
-
 
 module.exports = {
   connection,
@@ -155,4 +198,6 @@ module.exports = {
   activation,
   updateData,
   consultUser,
+  consultCities,
+  consultDocument,
 };
