@@ -116,7 +116,7 @@ function consultUser(data){
       console.log("Connected to MySQL Server!");
     });
     let identificationNumber = data;
-    let select =  `SELECT fullName,email,cityCode FROM ${process.env.TABLE_USER} WHERE identificationNumber=?`;
+    let select =  `SELECT identificationNumber,fullName,email,cityCode FROM ${process.env.TABLE_USER} WHERE identificationNumber=?`;
     let query = mysqlConnection.format(select, [identificationNumber]);
     mysqlConnection.query(query, (error, result) => {
       if (error) reject(error);
