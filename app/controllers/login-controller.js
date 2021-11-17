@@ -34,7 +34,7 @@ let login = (req, res) => {
         { identificationNumber: identificationNumber },
         config.SIGNING_KEY
       );
-      jwt.setExpiration(new Date().getTime() + 2 * 60 * 1000);
+      jwt.setExpiration(new Date().getTime() + 4 * 60 * 1000);
       let token = jwt.compact();
       return res.status(200).json({
         status: "Successful login",
