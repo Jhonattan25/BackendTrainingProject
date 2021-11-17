@@ -28,4 +28,9 @@ app.use('/activation', activation);
 app.use('/consultCities', consultCity);
 app.use('/consultDocument', consultDocument);
 
+
+app.get('/home', (req, res) =>{
+  res.send('Welcome to Report Documents');
+});
+
 module.exports = app;
