@@ -19,7 +19,6 @@ let njwtAuth = (req, res, next) => {
         message: err,
       });
     }
-  //identificationNumber = decoded.body.identificationNumber;
     next();
   });
 };
