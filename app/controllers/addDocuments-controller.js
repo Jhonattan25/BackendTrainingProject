@@ -21,6 +21,7 @@ let addDocuments = (req, res) => {
         return res.status(200).json({
           status: "Documents added successfully",
           add: true,
+          id: result.insertId,
         });
       })
       .catch((err) => {
