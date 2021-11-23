@@ -189,6 +189,25 @@ function consultDocument(data) {
   });
 }
 
+function consultDocumentType(data) {
+  return new Promise((resolve, reject) => {
+    const mysqlConnection = connection();
+    mysqlConnection.connect((err) => {
+      if (err) throw err;
+      console.log("Connected to MySQL Server!");
+    });
+
+    let select = `SELECT * FROM ${process.env.TABLE_DOCUMENT_TYPE}`;
+    let query = mysqlConnection.format(select);
+
+    mysqlConnection.query(query, (error, result) => {
+      if (error) reject(error);
+      mysqlConnection.end();
+      resolve(result);
+    });
+  });
+}
+
 module.exports = {
   connection,
   registerUser,
@@ -200,4 +219,5 @@ module.exports = {
   consultUser,
   consultCities,
   consultDocument,
+  consultDocumentType,
 };

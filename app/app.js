@@ -14,6 +14,8 @@ const updateDate = require('./routes/updateData');
 const consultUser = require('./routes/consultUser'); 
 const consultCity = require('./routes/consultCities'); 
 const consultDocument = require('./routes/consultDocument'); 
+const consultDocumentType = require('./routes/consultDocumentType'); 
+
 
 const app = express()
   .use(cors({ credentials: true, origin: "http://localhost:4200" }))
@@ -31,6 +33,7 @@ app.use('/updateData', updateDate);
 app.use('/consultUser', consultUser);
 app.use('/consultCities', consultCity);
 app.use('/consultDocument', consultDocument);
+app.use('/consultDocumentType', consultDocumentType);
 
 
 app.get('/home', (req, res) =>{
