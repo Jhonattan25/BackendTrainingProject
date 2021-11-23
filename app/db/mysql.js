@@ -96,7 +96,7 @@ function consultDocuments(data) {
     });
 
     let category = data.category;
-    let select = `SELECT * FROM ${process.env.TABLE_DOCUMENT_REPORT} WHERE category=?`;
+    let select = `SELECT d.id, d.documentNumber, d.fullName, d.email, d.description, date_format(d.date, "%d/%m/%Y") AS date, d.category, c.name AS cityName FROM ${process.env.TABLE_DOCUMENT_REPORT} d INNER JOIN ${process.env.TABLE_CITY} c ON d.cityCode = c.code WHERE d.category=?`;
     let query = mysqlConnection.format(select, [category]);
 
     mysqlConnection.query(query, (error, result) => {
@@ -126,7 +126,6 @@ function consultUser(data){
   });
 }
 
-
 function updateData(data){
   return new Promise((resolve, reject)=>{
     const mysqlConnection = connection();
@@ -146,7 +145,6 @@ function updateData(data){
     });
   });
 }
-
 
 function addDocuments(data) {
   return new Promise((resolve, reject) => {
@@ -178,7 +176,7 @@ function consultDocument(data) {
 
     let category = data.category;
     let documentNumber = data.documentNumber;
-    let select = `SELECT * FROM ${process.env.TABLE_DOCUMENT_REPORT} WHERE category=? AND documentNumber=?`;
+    let select = `SELECT d.id, d.documentNumber, d.fullName, d.email, d.description, date_format(d.date, "%d/%m/%Y") AS date, d.category, c.name AS cityName FROM ${process.env.TABLE_DOCUMENT_REPORT} d INNER JOIN ${process.env.TABLE_CITY} c ON d.cityCode = c.code WHERE category=? AND documentNumber=?`;
     let query = mysqlConnection.format(select, [category, documentNumber]);
 
     mysqlConnection.query(query, (error, result) => {
