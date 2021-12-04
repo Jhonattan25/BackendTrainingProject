@@ -16,6 +16,8 @@ const consultCity = require('./routes/consultCities');
 const consultDocument = require('./routes/consultDocument'); 
 const consultDocumentType = require('./routes/consultDocumentType'); 
 const updateDocument = require('./routes/updateDocument');
+const myConsultDocuments = require('./routes/myConsultDocuments'); 
+
 
 const app = express()
   .use(cors({ credentials: true, origin: "http://localhost:4200" }))
@@ -35,6 +37,7 @@ app.use('/consultCities', consultCity);
 app.use('/consultDocument', consultDocument);
 app.use('/consultDocumentType', consultDocumentType);
 app.use('/updateDocument', updateDocument);
+app.use('/myConsultDocuments', myConsultDocuments);
 
 app.get('/home', (req, res) =>{
   res.send('Welcome to Report Documents');
