@@ -1,11 +1,11 @@
 const db = require("../db/mysql");
 
-let updateData = (req, res) => {
-  db.updateData(req.body)
+let updateDocument = (req, res) => {
+  db.updateDocument(req.body)
     .then((result) => {
       return res.status(200).json({
-        status: "Token ok",
-        auth: true,
+        status: "Report modified successfully",
+        mod: true,
       });
     })
     .catch((err) => {
@@ -14,5 +14,5 @@ let updateData = (req, res) => {
 };
 
 module.exports = {
-    updateData,
+    updateDocument,
 };

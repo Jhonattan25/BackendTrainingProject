@@ -5,7 +5,7 @@ validatorParams = [
   check("fullName").isLength({ min: 1 }),
   check("email").isEmail(),
   check("description").isLength({ max: 100 }),
-  check("category").isBoolean(),
+  //check("category").isBoolean(),
   check("cityCode").isLength({ min: 5, max: 6 }),
 ];
 function validator(req, res, next) {
