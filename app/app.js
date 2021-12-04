@@ -16,6 +16,7 @@ const consultCity = require('./routes/consultCities');
 const consultDocument = require('./routes/consultDocument'); 
 const consultDocumentType = require('./routes/consultDocumentType'); 
 const updateDocument = require('./routes/updateDocument');
+const deleteDocument = require('./routes/deleteDocument');
 const myConsultDocuments = require('./routes/myConsultDocuments'); 
 
 
@@ -37,6 +38,7 @@ app.use('/consultCities', consultCity);
 app.use('/consultDocument', consultDocument);
 app.use('/consultDocumentType', consultDocumentType);
 app.use('/updateDocument', updateDocument);
+app.use('/deleteDocument', deleteDocument);
 app.use('/myConsultDocuments', myConsultDocuments);
 
 app.get('/home', (req, res) =>{
