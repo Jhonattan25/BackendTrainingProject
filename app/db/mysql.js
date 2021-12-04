@@ -96,7 +96,7 @@ function consultDocuments(data) {
     });
 
     let category = data.category;
-    let select = `SELECT d.id, d.documentNumber, d.fullName, d.email, d.description, date_format(d.date, "%d/%m/%Y") AS date, d.category, c.name AS cityName FROM ${process.env.TABLE_DOCUMENT_REPORT} d INNER JOIN ${process.env.TABLE_CITY} c ON d.cityCode = c.code WHERE d.category=?`;
+    let select = `SELECT d.id, d.documentNumber, d.fullName, d.email, d.description, date_format(d.date, "%d/%m/%Y") AS date, d.category, d.cityCode, c.name AS cityName FROM ${process.env.TABLE_DOCUMENT_REPORT} d INNER JOIN ${process.env.TABLE_CITY} c ON d.cityCode = c.code WHERE d.category=?`;
     let query = mysqlConnection.format(select, [category]);
 
     mysqlConnection.query(query, (error, result) => {
@@ -107,16 +107,15 @@ function consultDocuments(data) {
   });
 }
 
-
-function consultUser(data){
-  return new Promise((resolve, reject)=>{
+function consultUser(data) {
+  return new Promise((resolve, reject) => {
     const mysqlConnection = connection();
     mysqlConnection.connect((err) => {
       if (err) throw err;
       console.log("Connected to MySQL Server!");
     });
     let identificationNumber = data;
-    let select =  `SELECT identificationNumber,fullName,email,cityCode FROM ${process.env.TABLE_USER} WHERE identificationNumber=?`;
+    let select = `SELECT identificationNumber,fullName,email,cityCode FROM ${process.env.TABLE_USER} WHERE identificationNumber=?`;
     let query = mysqlConnection.format(select, [identificationNumber]);
     mysqlConnection.query(query, (error, result) => {
       if (error) reject(error);
@@ -126,8 +125,8 @@ function consultUser(data){
   });
 }
 
-function updateData(data){
-  return new Promise((resolve, reject)=>{
+function updateData(data) {
+  return new Promise((resolve, reject) => {
     const mysqlConnection = connection();
     mysqlConnection.connect((err) => {
       if (err) throw err;
@@ -135,9 +134,9 @@ function updateData(data){
     });
 
     let identificationNumber = data.identificationNumber;
-    let select =  `UPDATE ${process.env.TABLE_USER} SET ? WHERE identificationNumber=${identificationNumber}`;
+    let select = `UPDATE ${process.env.TABLE_USER} SET ? WHERE identificationNumber=${identificationNumber}`;
     let query = mysqlConnection.format(select, data);
-    
+
     mysqlConnection.query(query, (error, result) => {
       if (error) reject(error);
       mysqlConnection.end();
@@ -176,7 +175,7 @@ function consultDocument(data) {
 
     let category = data.category;
     let documentNumber = data.documentNumber;
-    let select = `SELECT d.id, d.documentNumber, d.fullName, d.email, d.description, date_format(d.date, "%d/%m/%Y") AS date, d.category, c.name AS cityName FROM ${process.env.TABLE_DOCUMENT_REPORT} d INNER JOIN ${process.env.TABLE_CITY} c ON d.cityCode = c.code WHERE category=? AND documentNumber=?`;
+    let select = `SELECT d.id, d.documentNumber, d.fullName, d.email, d.description, date_format(d.date, "%d/%m/%Y") AS date, d.category, d.cityCode, c.name AS cityName FROM ${process.env.TABLE_DOCUMENT_REPORT} d INNER JOIN ${process.env.TABLE_CITY} c ON d.cityCode = c.code WHERE category=? AND documentNumber=?`;
     let query = mysqlConnection.format(select, [category, documentNumber]);
 
     mysqlConnection.query(query, (error, result) => {
@@ -206,6 +205,26 @@ function consultDocumentType(data) {
   });
 }
 
+function updateDocument(data) {
+  return new Promise((resolve, reject) => {
+    const mysqlConnection = connection();
+    mysqlConnection.connect((err) => {
+      if (err) throw err;
+      console.log("Connected to MySQL Server!");
+    });
+
+    let id = data.id;
+    let select = `UPDATE ${process.env.TABLE_DOCUMENT_REPORT} SET ? WHERE id=${id}`;
+    let query = mysqlConnection.format(select, data);
+
+    mysqlConnection.query(query, (error, result) => {
+      if (error) reject(error);
+      mysqlConnection.end();
+      resolve(result);
+    });
+  });
+}
+
 module.exports = {
   connection,
   registerUser,
@@ -218,4 +237,5 @@ module.exports = {
   consultCities,
   consultDocument,
   consultDocumentType,
+  updateDocument,
 };
