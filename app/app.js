@@ -16,7 +16,13 @@ const consultCity = require('./routes/consultCities');
 const consultDocument = require('./routes/consultDocument'); 
 const consultDocumentType = require('./routes/consultDocumentType'); 
 const updateDocument = require('./routes/updateDocument');
+<<<<<<< Updated upstream
 const myConsultDocuments = require('./routes/myConsultDocuments'); 
+=======
+const deleteDocument = require('./routes/deleteDocument');
+const myConsultDocuments = require('./routes/myConsultDocuments');
+const myConsultDocumentsFound = require('./routes/myConsultDocumentsFound');  
+>>>>>>> Stashed changes
 
 
 const app = express()
@@ -38,6 +44,7 @@ app.use('/consultDocument', consultDocument);
 app.use('/consultDocumentType', consultDocumentType);
 app.use('/updateDocument', updateDocument);
 app.use('/myConsultDocuments', myConsultDocuments);
+app.use('/myConsultDocumentsFound', myConsultDocumentsFound);
 
 app.get('/home', (req, res) =>{
   res.send('Welcome to Report Documents');

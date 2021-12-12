@@ -127,6 +127,27 @@ function myConsultDocuments(data) {
   });
 }
 
+
+function myConsultDocumentsFound(data) {
+  return new Promise((resolve, reject) => {
+    const mysqlConnection = connection();
+    mysqlConnection.connect((err) => {
+      if (err) throw err;
+      console.log("Connected to MySQL Server!");
+    });
+    let identificationNumber = data.identificationNumber;
+    let category = data.category;
+    let select = `SELECT d.id, d.documentNumber, d.fullName, d.email, d.description, date_format(d.date, "%d/%m/%Y") AS date, d.category, d.cityCode, c.name AS cityName FROM ${process.env.TABLE_DOCUMENT_REPORT} d INNER JOIN ${process.env.TABLE_CITY} c ON d.cityCode = c.code WHERE d.category=? and d.userIdentificationNumber=? AND state=1`;
+    let query = mysqlConnection.format(select, [category,identificationNumber]);
+
+    mysqlConnection.query(query, (error, result) => {
+      if (error) reject(error);
+      mysqlConnection.end();
+      resolve(result);
+    });
+  });
+}
+
 function consultUser(data) {
   return new Promise((resolve, reject) => {
     const mysqlConnection = connection();
@@ -259,4 +280,5 @@ module.exports = {
   consultDocumentType,
   updateDocument,
   myConsultDocuments,
+  myConsultDocumentsFound,
 };
