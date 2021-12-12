@@ -4,7 +4,7 @@ let activation = (req, res) => {
   db.activation(req.query)
     .then((result) => {
       return res.status(200).json({
-        status: "Usuario activation successfully",
+        status: "User activation successfully",
         act: true,
       });
     })

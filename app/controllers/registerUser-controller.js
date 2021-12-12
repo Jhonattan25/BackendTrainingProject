@@ -10,7 +10,7 @@ let register = (req, res) => {
     .then(async (result) => {
       try {
         // send mail with defined transport object
-        /* await transporter.sendMail(
+        await transporter.sendMail(
           {
             from: '"Reporte De Documentos" <reportdococument@gmail.com>', // sender address
             to: `${req.body.email}`, // list of receivers
@@ -49,7 +49,7 @@ let register = (req, res) => {
             </tr>
             <tr>
                 <td>
-                    <a href="http://localhost:4200/activation?identificationNumber=${req.body.identificationNumber}">CLICK AQUI PARA ACTIVACION</a>
+                    <a href="http://localhost:4200/activation?identificationNumber=${req.body.identificationNumber}">CLICK AQUI PARA ACTIVAR LA CUENTA</a>
                 </td>
             </tr> 
           </table>
@@ -66,7 +66,7 @@ let register = (req, res) => {
               console.log(error);
             }
           }
-        ); */
+        );
       } catch (error) {
         //emailStatus = error;
         return res.status(400).json({
