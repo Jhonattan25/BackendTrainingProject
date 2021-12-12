@@ -16,9 +16,8 @@ const consultCity = require('./routes/consultCities');
 const consultDocument = require('./routes/consultDocument'); 
 const consultDocumentType = require('./routes/consultDocumentType'); 
 const updateDocument = require('./routes/updateDocument');
-const myConsultDocuments = require('./routes/myConsultDocuments'); 
 const deleteDocument = require('./routes/deleteDocument');
-const myConsultDocuments = require('./routes/myConsultDocuments');
+const myConsultDocuments = require('./routes/myConsultDocuments'); 
 const myConsultDocumentsFound = require('./routes/myConsultDocumentsFound');  
 
 
