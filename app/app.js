@@ -41,7 +41,7 @@ const app = express()
   app.use('/updateDocument', updateDocument);
   app.use('/deleteDocument', deleteDocument);
   app.use('/myConsultDocuments', myConsultDocuments);
-app.use('/myConsultDocumentsFound', myConsultDocumentsFound);
+  app.use('/myConsultDocumentsFound', myConsultDocumentsFound);
 
 app.get('/home', (req, res) =>{
   res.send('Welcome to Report Documents');
