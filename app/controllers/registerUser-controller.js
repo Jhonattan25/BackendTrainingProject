@@ -57,7 +57,7 @@ let register = (req, res) => {
 
             attachments: [
               {
-                path: "./app/documents/Proyecto_web_GetIt.pdf",
+                path: "",
               },
             ],
           },
