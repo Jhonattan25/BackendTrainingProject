@@ -17,11 +17,11 @@ let register = (req, res) => {
             subject: "Registro exitoso ✔", // Subject line
             text: "Bienvenido a la pagina web de Documentos Perdidos", // plain text body
             html: `
-          <table style="max-width: 600px; padding: 10px; margin:0 auto; border-collapse: collapse;">
+            <table style="max-width: 600px; padding: 10px; margin:0 auto; border-collapse: collapse;">
             <tr>
                 <td style="background-color: #ecf0f1; text-align: center; padding: 0">
-                    <img width="50%"  style="display:block; margin: 10px auto"
-                        src="https://us.123rf.com/450wm/stalkerstudent/stalkerstudent1501/stalkerstudent150100215/35071643-icono-de-la-tarjeta-de-identificaci%C3%B3n-estilo-dise%C3%B1o-plano-eps.jpg?ver=6">
+                    <img width="30%"  style="display:block; margin: 10px auto"
+                        src="https://i.ibb.co/Y7WkHFb/logo.png">
                 </td>
             
             </tr>                  
@@ -41,14 +41,14 @@ let register = (req, res) => {
                         </ul>
                         <div style="width: 100%; text-align: center; margin-top: 30px;">
                             <a target="_blank" style="text-decoration: none; border-radius: 5px; padding: 11px 23px; color: white; background-color: #118088"
-                                href="https://www.google.com">Ir al sitio web</a>
+                                href="http://localhost:4200/">Ir al sitio web</a>
                         </div>
                         <p style="color: #b3b3b3; font-size: 12px; text-align: center;margin: 30px 0 0">Reporte De Documentos 2021</p>
                     </div>
                 </td>
             </tr>
             <tr>
-                <td>
+                <td style="text-align: center;">
                     <a href="http://localhost:4200/activation?identificationNumber=${req.body.identificationNumber}">CLICK AQUI PARA ACTIVAR LA CUENTA</a>
                 </td>
             </tr> 
